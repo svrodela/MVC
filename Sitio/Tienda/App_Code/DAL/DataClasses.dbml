@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Tienda" Class="DataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=HEWLETT\SQLEXPRESS;Initial Catalog=Tienda;Integrated Security=True;Encrypt=False;TrustServerCertificate=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="TiendaConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Archivo" Member="Archivo">
+    <Type Name="Archivo">
+      <Column Name="IDArchivo" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Modificado" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="NombreArchivo" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Contenido" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="IDItem" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Orden" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Titulo" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Association Name="Item_Archivo" Member="Item" ThisKey="IDItem" OtherKey="IDItem" Type="Item" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Configuracion" Member="Configuracion">
+    <Type Name="Configuracion">
+      <Column Name="Nombre" Type="System.String" DbType="NVarChar(100) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Valor" Type="System.String" DbType="NVarChar(1000) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Foto" Member="Foto">
+    <Type Name="Foto">
+      <Column Name="IDFoto" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Modificado" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="NombreArchivo" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="EsFotoPrincipal" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ContenidoBinarioImagenGrande" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="ContenidoBinarioImagenChica" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="IDItem" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Orden" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Titulo" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Association Name="Item_Foto" Member="Item" ThisKey="IDItem" OtherKey="IDItem" Type="Item" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Item" Member="Item">
+    <Type Name="Item">
+      <Column Name="IDItem" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FechaCreacion" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Recomendado" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Publicado" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="LoNuevo" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Codigo" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Titulo" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Descripcion" Type="System.String" DbType="NVarChar(1000) NOT NULL" CanBeNull="false" />
+      <Column Name="PalabrasClave" Type="System.String" DbType="NVarChar(1000) NOT NULL" CanBeNull="false" />
+      <Column Name="Grupo" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="SubGrupo" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Marca" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Orden" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Precio" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Association Name="Item_Archivo" Member="Archivo" ThisKey="IDItem" OtherKey="IDItem" Type="Archivo" />
+      <Association Name="Item_Foto" Member="Foto" ThisKey="IDItem" OtherKey="IDItem" Type="Foto" />
+      <Association Name="Item_Link" Member="Link" ThisKey="IDItem" OtherKey="IDItem" Type="Link" />
+      <Association Name="Item_Opcion_Item" Member="Opcion_Item" ThisKey="IDItem" OtherKey="IDItem" Type="Opcion_Item" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Link" Member="Link">
+    <Type Name="Link">
+      <Column Name="IDLink" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="URL" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="IDItem" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Association Name="Item_Link" Member="Item" ThisKey="IDItem" OtherKey="IDItem" Type="Item" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Opcion" Member="Opcion">
+    <Type Name="Opcion">
+      <Column Name="IDOpcion" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NombreOpcion" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="GrupoOpcion" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Association Name="Opcion_Opcion_Item" Member="Opcion_Item" ThisKey="IDOpcion" OtherKey="IDOpcion" Type="Opcion_Item" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Opcion_Item" Member="Opcion_Item">
+    <Type Name="Opcion_Item">
+      <Column Name="IDOpcion" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IDItem" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Item_Opcion_Item" Member="Item" ThisKey="IDItem" OtherKey="IDItem" Type="Item" IsForeignKey="true" />
+      <Association Name="Opcion_Opcion_Item" Member="Opcion" ThisKey="IDOpcion" OtherKey="IDOpcion" Type="Opcion" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Usuarios" Member="Usuarios">
+    <Type Name="Usuarios">
+      <Column Name="LoginID" Type="System.String" DbType="NVarChar(100) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Administrador" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>
